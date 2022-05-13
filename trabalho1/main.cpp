@@ -7,12 +7,17 @@ void inserirSemRepetir(float v[], float n, int &pos, int max);
 void listar(float v[], int quantidade);
 int buscar(float v[], int quantidade, int n);
 void remover(float v[], int &quantidade, int n);
+void intercalar(float v1[], float v2[], float v3[], int tamanho);
+void intersecao(float v1[], float v2[], float v3[], int tamanho);
+void uniao(float v1[], float v2[], float v3[], int tamanho);
 
 // Programa Principal
 int main(void)
 {
     // Declaração da lista de notas
-    float notas[10];
+    float lista1[10];
+    float lista2[10];
+
     int quantidade;
     // Valor a ser lido
     float n;
@@ -27,31 +32,31 @@ int main(void)
     {
         int option;
         cout << "Enter a option:" << endl
-             << "1 - Inserir" << endl
-             << "2 - Inserir sem repetir" << endl
-             << "3 - Listar" << endl
-             << "4 - Buscar" << endl
+             << "1 - Criar listas" << endl
+             << "2 - Intercalar listas" << endl
+             << "3 - Fazer interseção das listas" << endl
+             << "4 - Unir listas" << endl
              << "5 - Remover" << endl
              << "0 - Sair" << endl;
         cin >> option;
         switch (option)
         {
         case 1:
-            cout << "Executa Inserir" << endl
+            cout << "Executa criar listas" << endl
                  << endl;
             break;
         case 2:
-            cout << "Executa Inserir Sem Repetir" << endl
+            cout << "Executa Intercalar listas" << endl
                  << endl;
             ;
             break;
         case 3:
-            cout << "Executa Listar" << endl
+            cout << "Executa Insterseção" << endl
                  << endl;
             ;
             break;
         case 4:
-            cout << "Executa Buscar" << endl
+            cout << "Executa Unir listas" << endl
                  << endl;
             ;
             break;
@@ -74,26 +79,6 @@ int main(void)
         }
 
     } while (n != 0);
-
-    // Imprime vetor
-    listar(notas, quantidade);
-
-    // Busca valor
-    cout << "Digite valor a buscar na lista: ";
-    cin >> n;
-    pos = buscar(notas, quantidade, n);
-    if (pos >= 0)
-        cout << "Encontrado em pos= " << pos << endl;
-    else
-        cout << "Valor nao encontrado na lista!";
-
-    // Revover um valor
-    cout << "Digite valor a remover da lista: ";
-    cin >> n;
-    remover(notas, quantidade, n);
-
-    // Imprime vetor
-    listar(notas, quantidade);
 }
 
 // Insere N na posição POS da lista V
@@ -108,7 +93,7 @@ void inserir(float v[], float n, int &pos, int max)
     }
 }
 
-// Insere os valores sem repetir na lista
+// Analisa os valores para inserir sem repetir
 void inserirSemRepetir(float v[], float n, int &pos, int max)
 {
     int index = buscar(v, pos, n);
@@ -162,4 +147,19 @@ void remover(float v[], int &quantidade, int n)
             quantidade--;
         }
     }
+}
+
+// Recebe duas listas e as intercala
+void intercalar(float v1[], float v2[], float v3, int tamanho)
+{
+}
+
+// Recebe duas listas e constroi uum lista com os valores em comum nas duas
+void intersecao(float v1[], float v2[], float v3, int tamanho)
+{
+}
+
+// Recebe as duas listas e as une
+void uniao(float v1[], float v2[], float v3, int tamanho)
+{
 }

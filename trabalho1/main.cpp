@@ -2,12 +2,12 @@
 using namespace std;
 
 // Protótipos
-void inserir(float v[], float n, int &pos, int max);           // OK
-void inserirSemRepetir(float v[], float n, int &pos, int max); // OK
-void listar(float v[], int quantidade);                        // OK
-int buscar(float v[], int quantidade, int n);                  // OK
-void remover(float v[], int &quantidade, int n);               // OK
-void intercalar(float v1[], int tamanhoV1, float v2[], int tamanhoV2, float v3[], int &tamanhoV3);
+void inserir(float v[], float n, int &pos, int max);                                               // OK
+void inserirSemRepetir(float v[], float n, int &pos, int max);                                     // OK
+void listar(float v[], int quantidade);                                                            // OK
+int buscar(float v[], int quantidade, int n);                                                      // OK
+void remover(float v[], int &quantidade, int n);                                                   // OK
+void intercalar(float v1[], int tamanhoV1, float v2[], int tamanhoV2, float v3[], int &tamanhoV3); // OK
 void intersecao(float v1[], int tamanhoV1, float v2[], int tamanhoV2, float v3[], int &tamanhoV3); // OK
 void uniao(float v1[], int tamanhoV1, float v2[], int tamanhoV2, float v3[], int &tamanhoV3);      // OK
 
@@ -89,9 +89,13 @@ int main(void)
 
             break;
         case 2:
-            cout << "Executa Intercalar listas" << endl
+            intercalar(lista_entrada1, quantidade_lista_entrada1, lista_entrada2, quantidade_lista_entrada2, lista_intercalada, quantidade_lista_intercalada);
+
+            cout << "Lista Intercalada" << endl
                  << endl;
             ;
+
+            listar(lista_intercalada, quantidade_lista_intercalada);
             break;
         case 3:
             intersecao(lista_entrada1, quantidade_lista_entrada1, lista_entrada2, quantidade_lista_entrada2, lista_intersecao, quantidade_lista_intersecao);
@@ -109,9 +113,16 @@ int main(void)
             listar(lista_uniao, quantidade_lista_uniao);
             break;
         case 5:
-            cout << "Executa Remover" << endl
-                 << endl;
-            ;
+            float entrada_remover;
+
+            cout << "Insira o elemento que deseja remover: ";
+            cin >> entrada_remover;
+
+            remover(lista_uniao, quantidade_lista_uniao, entrada_remover);
+
+            cout << "Lista resultante" << endl;
+            listar(lista_uniao, quantidade_lista_uniao);
+
             break;
         case 0:
             cout << "Executa Sair" << endl
@@ -162,8 +173,9 @@ void listar(float v[], int quantidade)
     int i;
     for (i = 0; i < quantidade; i++)
     {
-        cout << v[i] << endl;
+        cout << v[i] << " ";
     }
+    cout << endl;
 }
 
 // Busca por um elemento e retorna sua posição
@@ -200,9 +212,25 @@ void remover(float v[], int &quantidade, int n)
 // Recebe duas listas e as intercala
 void intercalar(float v1[], int tamanhoV1, float v2[], int tamanhoV2, float v3[], int &tamanhoV3)
 {
-    for (int element = 0; element < tamanhoV1 + tamanhoV2; element++)
+    int posicao_final = 0;
+    /*
+        Percorre o v3 adicionando os elementos de cada vetor de entrada
+        O maior vetor determina a quantidade repeticoes no for
+    */
+    for (int element = 0; element < (tamanhoV1 > tamanhoV2 ? tamanhoV1 : tamanhoV2); element++)
     {
+        if (element < tamanhoV1)
+        {
+            v3[posicao_final] = v1[element];
+            posicao_final++;
+        }
+        if (element < tamanhoV2)
+        {
+            v3[posicao_final] = v2[element];
+            posicao_final++;
+        }
     }
+    tamanhoV3 = posicao_final;
 }
 
 // Recebe duas listas e constroi uum lista com os valores em comum nas duas

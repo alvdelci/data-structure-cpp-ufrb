@@ -14,14 +14,14 @@ void uniao(float v1[], int tamanhoV1, float v2[], int tamanhoV2, float v3[], int
 // Programa Principal
 int main(void)
 {
-    // Declaração da lista
+    // Declaração da lista de entrada
     float lista_entrada1[10];
     float lista_entrada2[10];
 
     // lista dos valores das operacoes
     float lista_intercalada[20], lista_intersecao[10], lista_uniao[20];
 
-    // quantidade de elementos nas lista
+    // quantidade de elementos nas listas declaradas
     int quantidade_lista_entrada1 = 0, quantidade_lista_entrada2 = 0,
         quantidade_lista_intercalada = 0, quantidade_lista_intersecao = 0,
         quantidade_lista_uniao = 0;
@@ -29,7 +29,7 @@ int main(void)
     // Posição do resultado
     int pos;
 
-    // Leitura de N dado
+    // Leitura de N dados
     int n;
     do
     {
@@ -55,7 +55,7 @@ int main(void)
                 fim_lista2 = false;
 
                 cout << "Insira valores na lista: " << endl
-                     << "Insira 0 para sair e < 0 para trocar de lista" << endl;
+                     << "Insira (0) para sair e (-1) para trocar de lista" << endl;
                 cin >> input;
 
                 if (input < 0)
@@ -67,13 +67,11 @@ int main(void)
                 {
                     // Insere valores sem repetir na lista 1
                     inserirSemRepetir(lista_entrada1, input, quantidade_lista_entrada1, 10);
-                    cout << "Inseriu na 1" << endl;
                 }
                 else if (troca_lista && input > 0)
                 {
                     // insere valores sem repetir a lista 2
                     inserirSemRepetir(lista_entrada2, input, quantidade_lista_entrada2, 10);
-                    cout << "inseriu na 2" << endl;
                 }
                 else if (input < 0 && quantidade_lista_entrada2 > 0)
                 {
@@ -88,6 +86,7 @@ int main(void)
             listar(lista_entrada2, quantidade_lista_entrada2);
 
             break;
+
         case 2:
             intercalar(lista_entrada1, quantidade_lista_entrada1, lista_entrada2, quantidade_lista_entrada2, lista_intercalada, quantidade_lista_intercalada);
 
@@ -140,7 +139,7 @@ int main(void)
     } while (n != 0);
 }
 
-// Insere N na posição POS da lista V
+// Insere o valor digitado na lista
 void inserir(float v[], float n, int &pos, int max)
 {
     if (pos >= max)

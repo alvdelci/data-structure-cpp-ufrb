@@ -32,7 +32,7 @@ int partition(Idoso lista[], int inicio, int fim);        // OK
 int main()
 {
     int count_cadastro = 0, inicio = 0, meio, fim, input, found;
-    Idoso cadastros_armazenados[MAX];
+    Idoso cadastros_armazenados[MAX] = {};
     char name[MAX];
     int id, idade;
 
@@ -42,6 +42,7 @@ int main()
         cout << "1 - Cadastrar" << endl
              << "2 - Buscar pelo Identificador" << endl
              << "3 - Buscar pelo Nome" << endl
+             << "4 - Exibir todos os cadastros" << endl
              << "0 - Sair" << endl;
 
         cin >> input;
@@ -85,6 +86,7 @@ int main()
             char inputName[MAX];
             cout << "-----BUSCA POR NOME------" << endl
                  << "Informe o Nome: ";
+            cin.ignore();
             cin.getline(inputName, MAX);
 
             found = findByName(cadastros_armazenados, count_cadastro, inputName);
@@ -99,11 +101,16 @@ int main()
                      << "Idade: " << cadastros_armazenados[found].idade << endl
                      << "Identificador: " << cadastros_armazenados[found].id << endl;
             }
+            break;
+        case 4:
+            cout << endl
+                 << "------TODOS OS CADASTROS------" << endl;
+            show(cadastros_armazenados, count_cadastro);
 
             break;
         case 0:
-            // EXIBIR TUDO QUANDO ENCERRAR
-            show(cadastros_armazenados, count_cadastro);
+            // Encerra o programa
+
             break;
 
         default:
@@ -137,10 +144,10 @@ int findByName(Idoso lista[], int count, char name[])
 {
     for (int element = 0; element <= count; element++)
     {
-        if (lista[element].name == name)
+        if (strcmp(lista[element].name, name) == 0)
         {
+            cout << element;
             return element;
-            break;
         }
     }
     return -1;
@@ -164,7 +171,7 @@ void cadastrar(Idoso lista[], int &count)
 
         if (findById(lista, count, pessoa.id) == -1)
         {
-            lista[count + 1] = pessoa;
+            lista[count] = pessoa;
             count++;
             cout << "Cadastrado com Sucesso!" << endl;
         }
@@ -186,7 +193,7 @@ void cadastrar(Idoso lista[], int &count)
  */
 void show(Idoso lista[], int count)
 {
-    for (int element = 0; element <= count; element++)
+    for (int element = 0; element < count; element++)
     {
         cout << "------Pessoa------" << endl
              << "Idade: " << lista[element].idade << endl
@@ -257,11 +264,11 @@ void merge(Idoso lista[], int inicio, int final, int meio)
 /**
  * Quick Sort
  */
-void troca(Idoso *x, Idoso *y)
+void troca(Idoso &x, Idoso &y)
 {
-    Idoso aux = *x;
-    *x = *y;
-    *y = aux;
+    Idoso aux = x;
+    x = y;
+    y = aux;
 }
 int partition(Idoso lista[], int inicio, int final)
 {
@@ -274,19 +281,19 @@ int partition(Idoso lista[], int inicio, int final)
         if (lista[j].idade <= pivot)
         {
             i++;
-            troca(&lista[i], &lista[j]);
+            troca(lista[i], lista[j]);
         }
     }
-    troca(&lista[i + 1], &lista[final]);
+    troca(lista[i + 1], lista[final]);
     return (i + 1);
 }
-void quickSort(Idoso lista[], int inicio, int final)
+void quick_sort(Idoso lista[], int inicio, int final)
 {
     if (inicio < final)
     {
         int pivot = partition(lista, inicio, final);
 
-        quickSort(lista, inicio, pivot - 1);
-        quickSort(lista, pivot + 1, final);
+        quick_sort(lista, inicio, pivot - 1);
+        quick_sort(lista, pivot + 1, final);
     }
 }

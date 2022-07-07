@@ -56,8 +56,8 @@ int main()
 
             // Ordena a lista de pessoas cadatradas por merge_sort ou quick_sort
 
-            merge_sort(cadastros_armazenados, 0, count_cadastro - 1);
-            // quick_sort(cadastros_armazenados, 0, count_cadastro - 1);
+            // merge_sort(cadastros_armazenados, 0, count_cadastro - 1);
+            quick_sort(cadastros_armazenados, 0, count_cadastro - 1);
 
             break;
         case 2:
@@ -193,11 +193,11 @@ void cadastrar(Idoso lista[], int &count)
  */
 void show(Idoso lista[], int count)
 {
-    for (int element = 0; element < count; element++)
+    for (int element = count - 1; element > -1; element--)
     {
         cout << "------Pessoa------" << endl
-             << "Idade: " << lista[element].idade << endl
              << "Nome: " << lista[element].name << endl
+             << "Idade: " << lista[element].idade << endl
              << "Identificador: " << lista[element].id << endl;
     }
 }
@@ -232,32 +232,32 @@ void merge(Idoso lista[], int inicio, int final, int meio)
     {
         if (lista[i].idade < lista[j].idade)
         {
-            c[k].idade = lista[i].idade;
+            c[k] = lista[i];
             k++;
             i++;
         }
         else
         {
-            c[k].idade = lista[j].idade;
+            c[k] = lista[j];
             k++;
             j++;
         }
     }
     while (i <= meio)
     {
-        c[k].idade = lista[i].idade;
+        c[k] = lista[i];
         k++;
         i++;
     }
     while (j <= final)
     {
-        c[k].idade = lista[j].idade;
+        c[k] = lista[j];
         k++;
         j++;
     }
     for (i = inicio; i < k; i++)
     {
-        lista[i].idade = c[i].idade;
+        lista[i] = c[i];
     }
 }
 

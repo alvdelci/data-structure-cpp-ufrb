@@ -5,19 +5,56 @@ using namespace std;
 
 #define MAX 50
 
+// classe que define o perfil de um idoso
+class Idoso
+{
+public:
+    char *name;
+    int id;
+    int idade;
+
+public:
+    char getName()
+    {
+        return *name;
+    }
+    void setName(char *inputName)
+    {
+        name = inputName;
+    }
+
+    int getIdade()
+    {
+        return idade;
+    }
+    void setIdade(int inputIdade)
+    {
+        idade = inputIdade;
+    }
+
+    int getId()
+    {
+        return id;
+    }
+    void setId(int inputId)
+    {
+        id = inputId;
+    }
+};
+
 // Prototipos
-int findByName(Idoso lista[], string name);
-int findById(Idoso lista[], int count, int id);
+int findByName(Idoso *lista, char *name);
+int findById(Idoso *lista, int count, int id);
 void cadastrar(Idoso *lista, int count);
-// void merge_sort(Idoso lista, int inicio, int fim);
-// void merge(Idoso *lista, int inicio, int meio, int fim);
-// void quick_sort(Idoso *lista, int inicio, int fim);
+void merge_sort(Idoso *lista, int inicio, int fim);
+void merge(Idoso *lista, int inicio, int meio, int fim);
+void quick_sort(Idoso *lista, int inicio, int fim);
 
 int main()
 {
     int count_cadastro = 0, inicio = 0, meio, fim, input;
     Idoso cadastros_armazenados[MAX];
-    string nome;
+    char *nome;
     int id, idade;
 
     do
@@ -38,7 +75,7 @@ int main()
             cadastrar(cadastros_armazenados, count_cadastro);
 
             // Ordena a lista de pessoas cadatradas por merge_sort ou quick_sort
-            // merge_sort(cadastros_armazenados, 0, count_cadastro - 1);
+            merge_sort(cadastros_armazenados, 0, count_cadastro - 1);
             // quick_sort(cadastros_armazenados, 0, count_cadastro - 1);
 
             break;
@@ -49,7 +86,7 @@ int main()
                  << "Informe o Identificador: ";
             cin >> inputId;
 
-            int found = findById(&cadastros_armazenados, count_cadastro, inputId);
+            int found = findById(cadastros_armazenados, count_cadastro, inputId);
 
             if (found == -1)
             {
@@ -84,52 +121,15 @@ int main()
     return 0;
 }
 
-// classe que define o perfil de um idoso
-class Idoso
-{
-public:
-    string name;
-    int id;
-    int idade;
-
-public:
-    string getName()
-    {
-        return name;
-    }
-    void setName(string inputName)
-    {
-        name = inputName;
-    }
-
-    int getIdade()
-    {
-        return idade;
-    }
-    void setIdade(int inputIdade)
-    {
-        idade = inputIdade;
-    }
-
-    int getId()
-    {
-        return id;
-    }
-    void setId(int inputId)
-    {
-        id = inputId;
-    }
-};
-
 // FUNCTIONS
 /*
  * Recebe a lista de pessoas cadastradas e um nome de entrada. Retorna uma lista com os indices encontrados ou -1 caso não encontre o nome cadastrado
  */
-int findByName(Idoso lista[], string name) {}
-/*
+int findByName(Idoso *lista, char *name) {}
+/*;
  * Retorna o índice do elemento na lista de cadastros ou -1 caso o id não seja encontrado
  */
-int findById(Idoso lista[], int count, int id)
+int findById(Idoso *lista, int count, int id)
 {
     for (int element = 0; element < count; element++)
     {
@@ -140,42 +140,6 @@ int findById(Idoso lista[], int count, int id)
     }
     return -1;
 }
-// int partition(Idoso lista, int inicio, int fim)
-// {
-
-//     int pivot = lista[inicio].getIdade();
-
-//     int count = 0;
-//     for (int i = inicio + 1; i <= fim; i++)
-//     {
-//         if (lista[i].getIdade() <= pivot)
-//             count++;
-//     }
-//     // Declara o elemento correto do pivot
-//     int pivotIndex = inicio + count;
-//     swap(lista[pivotIndex], lista[inicio]);
-
-//     // Ordena os elementos do pivot dos lados esquerdo e direito
-//     int i = inicio, j = fim;
-
-//     while (i < pivotIndex && j > pivotIndex)
-//     {
-
-//         while (lista[i].getIdade() <= pivot)
-//         {
-//             i++;
-//         }
-//         while (lista[j].getIdade() > pivot)
-//         {
-//             j--;
-//         }
-//         if (i < pivotIndex && j > pivotIndex)
-//         {
-//             swap(lista[i++], lista[j--]);
-//         }
-//     }
-//     return pivotIndex;
-// }
 /*
  * Recebe as informações do usuário e realiza o cadastro caso não haja usuário com mesmo id cadastrado
  */
@@ -185,7 +149,7 @@ void cadastrar(Idoso *lista, int count)
     int loop = 1;
     do
     {
-        string name;
+        char *name;
         int idade;
         int id;
 
@@ -228,65 +192,101 @@ void cadastrar(Idoso *lista, int count)
              << "2 - Não" << endl;
     } while (loop == 1);
 }
-// void merge_sort(Idoso lista, int inicio, int fim)
-// {
-//     if (inicio >= fim)
-//         ;
-//     return;
+void merge_sort(Idoso *lista, int inicio, int fim)
+{
+    if (inicio >= fim)
+        ;
+    return;
 
-//     auto meio = inicio + (fim - inicio) / 2;
-//     merge_sort(lista, inicio, meio);
-//     merge_sort(lista, meio + 1, fim);
-//     merge(lista, inicio, meio, fim);
-// }
-// void merge(Idoso *arr, int low, int high, int mid)
-// {
-//     int i, j, k;
-//     Idoso c[50];
-//     i = low;
-//     k = low;
-//     j = mid + 1;
-//     while (i <= mid && j <= high)
-//     {
-//         if (arr[i].id < arr[j].idade)
-//         {
-//             c[k].idade = arr[i].idade;
-//             k++;
-//             i++;
-//         }
-//         else
-//         {
-//             c[k].idade = arr[j].idade;
-//             k++;
-//             j++;
-//         }
-//     }
-//     while (i <= mid)
-//     {
-//         c[k].idade = arr[i].idade;
-//         k++;
-//         i++;
-//     }
-//     while (j <= high)
-//     {
-//         c[k].idade = arr[j].idade;
-//         k++;
-//         j++;
-//     }
-//     for (i = low; i < k; i++)
-//     {
-//         arr[i].idade = c[i].idade;
-//     }
-// }
-// void quick_sort(Idoso lista, int inicio, int fim)
-// {
-//     if (inicio >= fim)
-//         ;
-//     return;
+    auto meio = inicio + (fim - inicio) / 2;
+    merge_sort(lista, inicio, meio);
+    merge_sort(lista, meio + 1, fim);
+    merge(lista, inicio, meio, fim);
+}
+void merge(Idoso *arr, int low, int high, int mid)
+{
+    int i, j, k;
+    Idoso c[50];
+    i = low;
+    k = low;
+    j = mid + 1;
+    while (i <= mid && j <= high)
+    {
+        if (arr[i].id < arr[j].idade)
+        {
+            c[k].idade = arr[i].idade;
+            k++;
+            i++;
+        }
+        else
+        {
+            c[k].idade = arr[j].idade;
+            k++;
+            j++;
+        }
+    }
+    while (i <= mid)
+    {
+        c[k].idade = arr[i].idade;
+        k++;
+        i++;
+    }
+    while (j <= high)
+    {
+        c[k].idade = arr[j].idade;
+        k++;
+        j++;
+    }
+    for (i = low; i < k; i++)
+    {
+        arr[i].idade = c[i].idade;
+    }
+}
+void quick_sort(Idoso *lista, int inicio, int fim)
+{
+    if (inicio >= fim)
+        ;
+    return;
 
-//     int p = partition(lista, inicio, fim);
+    int p = partition(lista, inicio, fim);
 
-//     quick_sort(lista, inicio, p - 1);
+    quick_sort(lista, inicio, p - 1);
 
-//     quick_sort(lista, p + 1, fim);
-// }
+    quick_sort(lista, p + 1, fim);
+}
+int partition(Idoso *lista, int inicio, int fim)
+{
+
+    int pivot = lista[inicio].getIdade();
+
+    int count = 0;
+    for (int i = inicio + 1; i <= fim; i++)
+    {
+        if (lista[i].getIdade() <= pivot)
+            count++;
+    }
+    // Declara o elemento correto do pivot
+    int pivotIndex = inicio + count;
+    swap(lista[pivotIndex], lista[inicio]);
+
+    // Ordena os elementos do pivot dos lados esquerdo e direito
+    int i = inicio, j = fim;
+
+    while (i < pivotIndex && j > pivotIndex)
+    {
+
+        while (lista[i].getIdade() <= pivot)
+        {
+            i++;
+        }
+        while (lista[j].getIdade() > pivot)
+        {
+            j--;
+        }
+        if (i < pivotIndex && j > pivotIndex)
+        {
+            swap(lista[i++], lista[j--]);
+        }
+    }
+    return pivotIndex;
+}

@@ -1,11 +1,12 @@
-// Alocação Dinâmica com Variáveis Simples
+// Alocaï¿½ï¿½o Dinï¿½mica com Variï¿½veis Simples
 
 #include <iostream>
 using namespace std;
 
-int main(void) {
+int main(void)
+{
 
-    // 1. Declaremos uma variável (alocação estática)
+    // 1. Declaremos uma variï¿½vel (alocaï¿½ï¿½o estï¿½tica)
     int x;
     // Declaremos dois ponteiros e inteiros
     int *p, *q;
@@ -15,7 +16,7 @@ int main(void) {
     // Apontemos p para x
     p = &x;
 
-    // Vamos agora, alocar dinamicamente um espaço, usando q
+    // Vamos agora, alocar dinamicamente um espaï¿½o, usando q
     q = new int;
 
     // Vamos, finalmente, *copiar* o valor de p para q
@@ -32,17 +33,15 @@ int main(void) {
     cout << "X: " << x << "   P: " << *p << "   Q: " << *q << endl;
 
     // Observe que o valor de X e P aumentaram em 1... mas o de Q diminuiu
-    // Isso ocorre porque o valor Q está em uma posição de memória diferente!
+    // Isso ocorre porque o valor Q estï¿½ em uma posiï¿½ï¿½o de memï¿½ria diferente!
 
-    // 3. Vamos, agora, *liberar* o espaço usado para Q
+    // 3. Vamos, agora, *liberar* o espaï¿½o usado para Q
     delete q;
 
-    // É responsabilidade do programador liberar *toda* a memória que ele
+    // ï¿½ responsabilidade do programador liberar *toda* a memï¿½ria que ele
     // alocar dinamicamente!
 
-    // Observe que o valor *q agora é indefinido... para deixar isso claro,
-    // costumamos armazenar o valor NULL em ponteiros que não apontam nada
+    // Observe que o valor *q agora ï¿½ indefinido... para deixar isso claro,
+    // costumamos armazenar o valor NULL em ponteiros que nï¿½o apontam nada
     q = NULL;
-
 }
-

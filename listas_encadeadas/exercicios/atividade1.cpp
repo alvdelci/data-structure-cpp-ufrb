@@ -160,6 +160,9 @@ no *buscar(no *lista, int valor)
         }
 
         temp = temp->ponteiro;
+
+        cout << endl
+             << "Temp aqui" << temp << endl;
     }
     return temp;
 }

@@ -6,7 +6,7 @@ struct No
 {
     int valor;
     No *left, *right;
-    short height;
+    int height;
 };
 
 // Prototipos
@@ -32,6 +32,7 @@ int main()
     do
     {
         cout << endl
+             << endl
              << " 0 - Sair " << endl
              << " 1 - Inserir " << endl
              << " 2 - Remover " << endl
@@ -191,7 +192,7 @@ No *inserir(No *raiz, int x)
 */
 No *balancear(No *raiz)
 {
-    short fb = fatorDeBalanceamento(raiz);
+    int fb = fatorDeBalanceamento(raiz);
 
     // Rotação à esquerda
     if (fb < -1 && fatorDeBalanceamento(raiz->right) <= 0)
